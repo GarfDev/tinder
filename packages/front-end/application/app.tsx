@@ -6,7 +6,7 @@ const App = (): JSX.Element => {
   // Main return
   return (
     <div>
-      {/* <Homepage /> */}
+      <Homepage />
       <Reset />
     </div>
   );
