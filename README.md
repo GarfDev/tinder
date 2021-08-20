@@ -77,8 +77,14 @@ To get a local copy up and running follow these simple steps.
 This is an example of how to list things you need to use the software and how to install them.
 
 - npm
+
   ```sh
   npm install npm@latest -g
+  ```
+
+- yarn
+  ```sh
+  npm install yarn@latest -g
   ```
 
 ### Installation
@@ -91,6 +97,17 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    yarn && yarn bootstrap
    ```
+
+## Common commands (for Developer only)
+
+```sh
+# to run front-end
+yarn dev:front
+# to run back-end (planned, not yet working)
+yarn dev:back
+# to quick start docker for whole project
+yarn docker:start
+```
 
 <!-- USAGE EXAMPLES -->
 
@@ -139,5 +156,3 @@ Project Link: [https://github.com/garfdev/tinder](https://github.com/garfdev/tin
 [license-url]: https://github.com/garfdev/repo/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/garfdev
-
-{"mode":"full","isActive":false}

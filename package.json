@@ -8,7 +8,7 @@
     "prepare": "yarn prepare:husky:commit && yarn prepare:husky:prettier",
     "prepare:husky:prettier": "npx husky add .husky/pre-commit \"npx pretty-quick --staged\"",
     "prepare:husky:commit": "npx husky install && npx husky add .husky/commit-msg 'yarn commitlint --edit \"$1\"'",
-    "dev:front": "yarn workspace @tinder/front-end start",
+    "dev:front": "yarn workspace @tinder/front-end dev",
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test --stream"
   },
