@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.build.json",
+
+  "compilerOptions": {
+    "types": [],
+    "rootDir": ".",
+    "target": "es6",
+    "outDir": "./dist",
+    "declaration": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "baseUrl": "./packages",
+    "lib": ["es6"],
+    "paths": {}
+  },
+  "exclude": ["node_modules"]
+}

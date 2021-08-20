@@ -1,0 +1,16 @@
+{
+  "version": "0.0.1",
+  "name": "@tinder/shared-types",
+  "main": "dist/index",
+  "types": "dist/index",
+  "private": true,
+  "scripts": {
+    "tsc": "tsc -b tsconfig.json"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@types/node": "^16.3.3",
+    "expo-yarn-workspaces": "^1.5.2",
+    "typescript": "^4.3.5"
+  }
+}
