@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Person } from "@tinder/shared-types";
 import {
@@ -22,7 +22,7 @@ const SWITCH_POINT = 200;
 const MAX_SWIPE_POINT = 200;
 const MAX_ROTAGE_ANGLE = 15;
 const MIN_SWIPE_POINT = 150;
-const MIN_SWITCH_POINT = 20;
+const MIN_SWITCH_POINT = 40;
 const SWIPE_RIGHT_COLOR = "#ed4264";
 const SWIPE_LEFT_COLOR = "#585757";
 
@@ -39,7 +39,6 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
 
   // States
   const motionValue = useMotionValue(0);
-  const [reInitializing, setReinitializing] = useState(false);
   const rotateValue = useTransform(
     motionValue,
     [-MAX_SWIPE_POINT, MAX_SWIPE_POINT],
@@ -92,10 +91,8 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
   };
 
   const reInitialize = async () => {
-    setReinitializing(true);
     await controls.start({ x: 0 });
     await controls.start({ opacity: 1 });
-    setReinitializing(false);
   };
 
   // Side-Effects
