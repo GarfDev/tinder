@@ -7,12 +7,15 @@ const Reset = createGlobalStyle`
     border: 0;
     font-size: 100%;
     font: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: geometricPrecision;
     vertical-align: baseline;
   }
 
   html, body {
     height: 100%;
+    width: 100%;
   }
 
 

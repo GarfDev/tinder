@@ -1,14 +1,17 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Reset from "./reset";
+import { RecoilRoot } from "recoil";
 import Homepage from "./features/homepage";
 
 const App = (): JSX.Element => {
   // Main return
   return (
-    <>
-      <Homepage />
-      <Reset />
-    </>
+    <Suspense fallback={<>Loading</>}>
+      <RecoilRoot>
+        <Homepage />
+        <Reset />
+      </RecoilRoot>
+    </Suspense>
   );
 };
 

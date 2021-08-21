@@ -5,11 +5,12 @@
     "precommit": "lint-staged",
     "tsc": "lerna run tsc --stream",
     "lint:prettier": "npx pretty-quick --staged",
-    "prepare": "yarn prepare:husky:commit && yarn prepare:husky:prettier",
-    "prepare:husky:prettier": "npx husky add .husky/pre-commit \"npx pretty-quick --staged\"",
-    "prepare:husky:commit": "npx husky install && npx husky add .husky/commit-msg 'yarn commitlint --edit \"$1\"'",
+    "pre:install": "yarn pre:install:husky:commit && yarn pre:install:husky:prettier",
+    "pre:install:husky:prettier": "npx husky add .husky/pre-commit \"npx pretty-quick --staged\"",
+    "pre:install:husky:commit": "npx husky install && npx husky add .husky/commit-msg 'yarn commitlint --edit \"$1\"'",
     "dev:front": "yarn workspace @tinder/front-end dev",
-    "bootstrap": "lerna bootstrap",
+    "pre:deps:shared-types": "lerna run --scope @tinder/shared-types tsc",
+    "bootstrap": "yarn pre:deps:shared-types && lerna bootstrap && yarn pre:install",
     "test": "lerna run test --stream"
   },
   "workspaces": [
