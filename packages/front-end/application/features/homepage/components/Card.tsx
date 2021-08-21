@@ -14,10 +14,18 @@ import {
  * Constants
  */
 
-const SWITCH_POINT = 150;
+const HIDE = 0;
+const SHOW = 1;
+const MAX_SWITCH_POINT = 150;
+const MAX_SWIPE_POINT = 200;
+const MAX_ROTAGE_ANGLE = 50;
+const MIN_SWIPE_POINT = 150;
+const MIN_SWITCH_POINT = 20;
+const SWIPE_RIGHT_COLOR = "#ed4264";
+const SWIPE_LEFT_COLOR = "#585757";
 
 interface Props {
-  person: Person;
+  person?: Person;
   // Events
   onSwipeLeft?: () => void;
   onSwipeRight?: () => void;
@@ -30,16 +38,41 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
   // States
   const motionValue = useMotionValue(0);
   const [reInitializing, setReinitializing] = useState(false);
-  const rotateValue = useTransform(motionValue, [-200, 200], [-50, 50]);
+  const rotateValue = useTransform(
+    motionValue,
+    [-MAX_SWIPE_POINT, MAX_SWIPE_POINT],
+    [-MAX_ROTAGE_ANGLE, MAX_ROTAGE_ANGLE]
+  );
   const opacityValue = useTransform(
     motionValue,
-    [-200, -150, 0, 150, 200],
-    [0, 1, 1, 1, 0]
+    [-MAX_SWIPE_POINT, -MAX_SWITCH_POINT, 0, MAX_SWITCH_POINT, MAX_SWIPE_POINT],
+    [HIDE, SHOW, SHOW, SHOW, HIDE]
   );
+
+  const rightStampOpacity = useTransform(
+    motionValue,
+    [0, MIN_SWITCH_POINT, MIN_SWIPE_POINT],
+    [HIDE, HIDE, SHOW]
+  );
+
+  const leftStampOpacity = useTransform(
+    motionValue,
+    [-MIN_SWIPE_POINT, -MIN_SWITCH_POINT, 0],
+    [SHOW, HIDE, HIDE]
+  );
+
+  const swipeColor = useTransform(
+    motionValue,
+    [-MIN_SWITCH_POINT, 0, MIN_SWITCH_POINT],
+    [SWIPE_LEFT_COLOR, SWIPE_RIGHT_COLOR, SWIPE_RIGHT_COLOR]
+  );
+
+  // Mapped values
+  const fullName = `${person?.firstName} ${person?.lastName}`;
 
   // Event handlers
   const onDragEnd: PanHandlers["onPan"] = (_, { offset }) => {
-    if (Math.abs(offset.x) <= SWITCH_POINT) {
+    if (Math.abs(offset.x) <= MAX_SWITCH_POINT) {
       controls.start({
         x: 0,
       });
@@ -66,26 +99,48 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
   // Side-Effects
   useEffect(() => {
     reInitialize();
-  }, [person.id]);
+  }, [person?.id]);
 
   // Main return
   return (
     <AnimatePresence>
-      <Container
-        drag="x"
-        animate={controls}
-        style={{
-          x: motionValue,
-          rotate: rotateValue,
-          opacity: !reInitializing ? opacityValue : 0,
-        }}
-        onDragEnd={onDragEnd}
-      >
-        <Image src={person.picture} />
-        <InfoContainer>
-          <Text>{`${person.firstName} ${person.lastName}`}</Text>
-        </InfoContainer>
-      </Container>
+      {person && (
+        <Container
+          drag="x"
+          key="main-swipable-modal"
+          exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }}
+          animate={controls}
+          style={{
+            x: motionValue,
+            rotate: rotateValue,
+            opacity: !reInitializing ? opacityValue : 0,
+            borderColor: swipeColor,
+          }}
+          onDragEnd={onDragEnd}
+        >
+          <Image src={person.picture} />
+          <InfoContainer>
+            <Text>{`${fullName}`}</Text>
+          </InfoContainer>
+          <Stamp
+            style={{
+              opacity: rightStampOpacity,
+              backgroundColor: swipeColor,
+            }}
+          >
+            <span className="fas fa-heart" />
+          </Stamp>
+          <Stamp
+            style={{
+              opacity: leftStampOpacity,
+              backgroundColor: swipeColor,
+            }}
+          >
+            <span className="fas fa-ban" />
+          </Stamp>
+        </Container>
+      )}
     </AnimatePresence>
   );
 };
@@ -96,9 +151,14 @@ const Container = styled(motion.div)`
   width: 300px;
   height: 600px;
   display: flex;
-  box-shadow: 5px 10px 18px #888888;
+  position: relative;
+  background: white;
+  border: 5px solid;
+  background-clip: padding-box;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   flex-direction: column;
-  border-radius: 5px;
+  border-radius: 15px;
+  overflow: hidden;
 `;
 
 const Image = styled.div<{ src: string }>`
@@ -110,10 +170,27 @@ const Image = styled.div<{ src: string }>`
 `;
 
 const InfoContainer = styled.div`
-  flex: 1;
-  padding: 15px 10px;
+  bottom: 0;
+  height: 25%;
+  width: 100%;
+  position: absolute;
+  padding: 15px 15px;
+  color: white;
 `;
 
 const Text = styled.span`
   font-size: 1.5rem;
+`;
+
+const Stamp = styled(motion.span)`
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  font-size: 9rem;
+  justify-content: center;
+  align-items: center;
+  color: #f0f0f0;
 `;

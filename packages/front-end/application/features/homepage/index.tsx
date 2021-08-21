@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import { Person } from "@tinder/shared-types";
 import { peopleFetchProperitiesState, peopleQuery } from "./atoms";
+import { LOADING_OFFSET } from "./constants";
 import { PeopleMap } from "./types";
 import { Card } from "./components";
-
-/**
- * Constants
- */
-
-const loadingOffset = 3;
 
 /**
  *
@@ -30,6 +25,7 @@ const Homepage = (): JSX.Element => {
   // Mapped values
   const loading = remotePeoples.state === "loading";
   const peoples: Person[] = Object.values(peopleMap).flat();
+  const peopleLength = peoples.length || LOADING_OFFSET;
   const viewingPerson = peoples[viewIndex];
 
   // Event Handlers
@@ -54,8 +50,8 @@ const Homepage = (): JSX.Element => {
   // Side-Effects
 
   useEffect(() => {
-    const offsetPoint = (peoples.length || loadingOffset) - loadingOffset;
     if (!loading) {
+      const offsetPoint = peopleLength - LOADING_OFFSET;
       if (viewIndex > offsetPoint) {
         loadNextPage();
       }
@@ -80,17 +76,23 @@ const Homepage = (): JSX.Element => {
     }
   }, [remotePeoples.state]);
 
+  useEffect(() => {
+    return () => {
+      setFetchProperities({
+        ...fetchProperities,
+        page: 1,
+      });
+    };
+  }, []);
+
   // Main return
   return (
     <Container>
-      {console.log("viewingPerson", viewingPerson)}
-      {viewingPerson && (
-        <Card
-          person={viewingPerson}
-          onSwipeRight={onSwipeRight}
-          onSwipeLeft={onSwipeLeft}
-        />
-      )}
+      <Card
+        person={viewingPerson}
+        onSwipeRight={onSwipeRight}
+        onSwipeLeft={onSwipeLeft}
+      />
     </Container>
   );
 };
@@ -105,6 +107,9 @@ const Container = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
+  background: #ed4264;
+  background: -webkit-linear-gradient(to right, #ffedbc, #ed4264);
+  background: linear-gradient(to right, #ffedbc, #ed4264);
   justify-content: center;
   align-items: center;
 `;
