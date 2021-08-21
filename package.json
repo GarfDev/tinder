@@ -9,6 +9,9 @@
     "pre:install:husky:prettier": "npx husky add .husky/pre-commit \"npx pretty-quick --staged\"",
     "pre:install:husky:commit": "npx husky install && npx husky add .husky/commit-msg 'yarn commitlint --edit \"$1\"'",
     "dev:front": "yarn workspace @tinder/front-end dev",
+    "dev:back": "yarn workspace @tinder/back-end dev",
+    "install:back": "yarn workspace @tinder/back-end add",
+    "install:front": "yarn workspace @tinder/front-end add",
     "pre:deps:shared-types": "lerna run --scope @tinder/shared-types tsc",
     "bootstrap": "yarn pre:deps:shared-types && lerna bootstrap && yarn pre:install",
     "test": "lerna run test --stream"

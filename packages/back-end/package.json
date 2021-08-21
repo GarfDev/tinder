@@ -1,0 +1,31 @@
+{
+  "name": "@tinder/back-end",
+  "version": "1.0.0",
+  "description": "Now I’m the model of a modern major general / The venerated Virginian veteran whose men are all / Lining up, to put me up on a pedestal / Writin’ letters to relatives / Embellishin’ my elegance and eloquence / But the elephant is in the room / The truth is in ya face when ya hear the British cannons go / BOOM",
+  "keywords": [],
+  "author": "Nguyen Gia Tuan <garfdev.13@gmail.com>",
+  "license": "MIT",
+  "main": "lib/back-end.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GarfDev/tinder.git"
+  },
+  "scripts": {
+    "dev": "nodemon",
+    "start": "yarn build && node ./dist/index.js",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/GarfDev/tinder/issues"
+  },
+  "homepage": "https://github.com/GarfDev/tinder#readme",
+  "devDependencies": {
+    "@types/node": "^16.7.1",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.1",
+    "tsconfig-paths": "^3.10.1",
+    "tslib": "^2.3.1",
+    "ttypescript": "^1.5.12",
+    "typescript-transform-paths": "^3.3.1"
+  }
+}

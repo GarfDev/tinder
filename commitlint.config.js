@@ -6,6 +6,7 @@ module.exports = {
       "always",
       [
         // workspace packages
+        "@tinder/back-end",
         "@tinder/front-end",
         "@tinder/shared-types",
         "eslint",
