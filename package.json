@@ -3,8 +3,6 @@
   "private": true,
   "scripts": {
     "precommit": "lint-staged",
-    "docker:start": "docker-compose up",
-    "docker:dev": "docker-compose -f docker-compose.dev.yml up --remove-orphans",
     "tsc": "yarn lerna run tsc --stream",
     "lint:prettier": "npx pretty-quick --staged",
     "pre:install": "yarn pre:install:husky:commit && yarn pre:install:husky:prettier",
