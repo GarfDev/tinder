@@ -5,10 +5,10 @@ import Homepage from "./features/homepage";
 const App = (): JSX.Element => {
   // Main return
   return (
-    <div>
+    <>
       <Homepage />
       <Reset />
-    </div>
+    </>
   );
 };
 

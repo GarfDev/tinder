@@ -11,6 +11,11 @@ const Reset = createGlobalStyle`
     vertical-align: baseline;
   }
 
+  html, body {
+    height: 100%;
+  }
+
+
   article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     display: block; }
 

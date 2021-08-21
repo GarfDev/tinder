@@ -100,7 +100,7 @@ dist
 
 # FuseBox cache
 .fusebox/
-.husky
+.husky/
 
 # DynamoDB Local files
 .dynamodb/
