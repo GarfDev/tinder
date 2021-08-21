@@ -166,6 +166,7 @@ const Image = styled.div<{ src: string }>`
   background-size: cover;
   background-image: ${({ src }) => `url(${src})`};
   background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const InfoContainer = styled.div`
