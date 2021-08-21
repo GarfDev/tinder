@@ -14,11 +14,13 @@ import {
  * Constants
  */
 
+// Group them togother in here for
+// easier to modify values
 const HIDE = 0;
 const SHOW = 1;
-const MAX_SWITCH_POINT = 150;
+const SWITCH_POINT = 200;
 const MAX_SWIPE_POINT = 200;
-const MAX_ROTAGE_ANGLE = 50;
+const MAX_ROTAGE_ANGLE = 15;
 const MIN_SWIPE_POINT = 150;
 const MIN_SWITCH_POINT = 20;
 const SWIPE_RIGHT_COLOR = "#ed4264";
@@ -45,7 +47,7 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
   );
   const opacityValue = useTransform(
     motionValue,
-    [-MAX_SWIPE_POINT, -MAX_SWITCH_POINT, 0, MAX_SWITCH_POINT, MAX_SWIPE_POINT],
+    [-MAX_SWIPE_POINT, -MIN_SWIPE_POINT, 0, MIN_SWIPE_POINT, MAX_SWIPE_POINT],
     [HIDE, SHOW, SHOW, SHOW, HIDE]
   );
 
@@ -72,7 +74,7 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
 
   // Event handlers
   const onDragEnd: PanHandlers["onPan"] = (_, { offset }) => {
-    if (Math.abs(offset.x) <= MAX_SWITCH_POINT) {
+    if (Math.abs(offset.x) <= SWITCH_POINT) {
       controls.start({
         x: 0,
       });
@@ -85,7 +87,7 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
         onSwipeLeft?.();
       }
 
-      controls.start({ x: offset.x < 0 ? -200 : 200 });
+      controls.start({ x: offset.x < 0 ? -MAX_SWIPE_POINT : MAX_SWIPE_POINT });
     }
   };
 
@@ -114,7 +116,7 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
           style={{
             x: motionValue,
             rotate: rotateValue,
-            opacity: !reInitializing ? opacityValue : 0,
+            opacity: opacityValue,
             borderColor: swipeColor,
           }}
           onDragEnd={onDragEnd}
