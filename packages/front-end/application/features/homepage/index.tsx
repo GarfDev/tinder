@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import { Person } from "@tinder/shared-types";
 import { peopleFetchProperitiesState, peopleQuery } from "./atoms";
 import { LOADING_OFFSET } from "./constants";
-import { PeopleMap } from "./types";
+import { PeopleMap, IPerson } from "./types";
 import { Card } from "./components";
 
 /**
@@ -26,7 +26,7 @@ const Homepage = (): JSX.Element => {
   const loading = remotePeoples.state === "loading";
   const peoples: Person[] = Object.values(peopleMap).flat();
   const peopleLength = peoples.length || LOADING_OFFSET;
-  const viewingPerson = peoples[viewIndex];
+  const viewingPerson = peoples[viewIndex] as IPerson;
 
   // Event Handlers
 
@@ -57,6 +57,8 @@ const Homepage = (): JSX.Element => {
       }
     }
   }, [viewIndex]);
+
+  console.log(peopleMap);
 
   useEffect(() => {
     switch (remotePeoples.state) {

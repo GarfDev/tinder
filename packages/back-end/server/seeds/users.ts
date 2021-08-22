@@ -6,7 +6,7 @@ const LIMIT = 1000;
 const GENERATED_ARRAY = new Array(LIMIT).fill(0);
 
 const userCollection: SeederCollection<IPersonDetail> = {
-  name: "User",
+  name: "users",
   documents: GENERATED_ARRAY.map(() => {
     return generateUser();
   }),

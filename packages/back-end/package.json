@@ -26,6 +26,7 @@
     "@types/express-locale": "^2.0.1",
     "@types/faker": "^5.5.8",
     "@types/node": "^16.7.1",
+    "@types/node-fetch": "^2.5.12",
     "nanoid": "^3.1.25",
     "nodemon": "^2.0.12",
     "ts-node": "^10.2.1",
@@ -42,7 +43,9 @@
     "faker": "^5.5.3",
     "http-status": "^1.5.0",
     "mongo-seeding": "^3.7.0",
+    "mongoose": "^5.13.7",
     "mongoose-paginate-ts": "^1.2.0",
-    "mongoose": "^5.13.7"
+    "node-fetch": "^2.6.1",
+    "unsplash-js": "^7.0.15"
   }
 }

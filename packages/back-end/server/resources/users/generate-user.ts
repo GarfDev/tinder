@@ -20,7 +20,7 @@ const generateUser = (preDetail?: Partial<IPersonDetail>): IPersonDetail => {
     lastName: faker.name.lastName(),
     gender: generateGender(),
     email: faker.internet.email(),
-    dateOfBirth: faker.date.past(10),
+    dateOfBirth: faker.date.past(50),
     phone: faker.phone.phoneNumber(),
     location: {
       street: faker.address.streetName(),

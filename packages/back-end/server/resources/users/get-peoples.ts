@@ -1,20 +1,35 @@
+import httpStatus from "http-status";
+import { RequestHandler } from "express";
+import normalizeUser from "./normalize-user";
 import User from "~models/user";
-import { IPersonDetail } from "~models/user/types";
 
-const getPeoples = async (user: IPersonDetail) => {
+const getPeoples: RequestHandler = async (req, res) => {
+  const user = req.currentUser;
+  const currentPage = req.query?.page || 1;
+
   // Not to let user swipe the same person twice
   const excludeIds = [...user.passedUUIDs, ...user.likedUUIDs];
 
   const peoples = await User.paginate({
-    uuid: {
-      $nin: excludeIds,
+    query: {
+      uuid: {
+        $nin: excludeIds,
+      },
     },
+    page: currentPage,
+    limit: 10,
   });
 
-  if (!peoples) return [];
-  console.log(peoples);
-  // return peoples.docs.map((people) => people.toJSON());
-  return [];
+  if (peoples) {
+    const data = peoples.docs.map((people) => normalizeUser(people));
+    return res
+      .status(httpStatus.ACCEPTED)
+      .json({ data, page: currentPage, totalPage: peoples.totalPages });
+  }
+
+  return res
+    .status(httpStatus.ACCEPTED)
+    .json({ data: [], page: currentPage, totalPage: 0 });
 };
 
 export default getPeoples;

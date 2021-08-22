@@ -1,6 +1,8 @@
 import { axios } from "../../../utils";
 import { atom, selector } from "recoil";
-import { PersonResponse, PeopleFetchProperities } from "../types";
+import { PersonResponse, PeopleFetchProperities, IPerson } from "../types";
+import personRemoteAdapter from "../adapters";
+import { API_REQUEST } from "../constants";
 
 /**
  * Atoms
@@ -10,7 +12,7 @@ export const peopleFetchProperitiesState = atom<PeopleFetchProperities>({
   key: "peopleFetchProperities",
   default: {
     limit: 10,
-    page: 0,
+    page: 1,
   },
 });
 
@@ -23,14 +25,14 @@ export const peopleQuery = selector({
   get: async ({ get }) => {
     const properities = get(peopleFetchProperitiesState);
     const response: PersonResponse = await axios({
-      method: "GET",
-      url: "/user",
-      headers: {
-        "app-id": "6120eda966daca73ad7534e4",
-      },
+      ...API_REQUEST.USERS,
       data: properities,
     });
 
-    return { [response.data.page]: response.data.data };
+    return {
+      [response.data.page]: response.data.data.map(
+        (item) => personRemoteAdapter(item) as IPerson
+      ),
+    };
   },
 });

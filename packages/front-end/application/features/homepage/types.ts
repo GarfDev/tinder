@@ -1,9 +1,13 @@
 import { AxiosResponse } from "axios";
-import { Person } from "@tinder/shared-types";
+import { PersonDetail } from "@tinder/shared-types";
 
+export interface IPerson extends PersonDetail {
+  age: number;
+  avatarUrl: string;
+}
 export interface PersonResponse extends AxiosResponse {
   data: {
-    data: Person[];
+    data: PersonDetail[];
     limit: number;
     total: number;
     page: number;
@@ -11,7 +15,7 @@ export interface PersonResponse extends AxiosResponse {
 }
 
 export interface PeopleMap {
-  [page: number]: Person[];
+  [page: number]: IPerson[];
 }
 
 export * from "@tinder/shared-types";

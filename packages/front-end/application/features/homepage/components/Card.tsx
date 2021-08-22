@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Person } from "@tinder/shared-types";
 import {
   motion,
   useMotionValue,
@@ -9,6 +8,7 @@ import {
   PanHandlers,
   AnimatePresence,
 } from "framer-motion";
+import { IPerson } from "../types";
 
 /**
  * Constants
@@ -27,7 +27,7 @@ const SWIPE_RIGHT_COLOR = "#ed4264";
 const SWIPE_LEFT_COLOR = "#585757";
 
 interface Props {
-  person?: Person;
+  person?: IPerson;
   // Events
   onSwipeLeft?: () => void;
   onSwipeRight?: () => void;
@@ -69,7 +69,6 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
   );
 
   // Mapped values
-  const fullName = `${person?.firstName} ${person?.lastName}`;
 
   // Event handlers
   const onDragEnd: PanHandlers["onPan"] = (_, { offset }) => {
@@ -98,7 +97,7 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
   // Side-Effects
   useEffect(() => {
     reInitialize();
-  }, [person?.id]);
+  }, [person?.uuid]);
 
   // Main return
   return (
@@ -118,9 +117,15 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
           }}
           onDragEnd={onDragEnd}
         >
-          <Image src={person.picture} />
+          <Image src={person.avatarUrl} />
           <InfoContainer>
-            <Text>{`${fullName}`}</Text>
+            <Text weight="bold">
+              {`${person.lastName},`}
+              <Text weight="normal" size="1.3rem">
+                {" "}
+                {person.age}
+              </Text>
+            </Text>
           </InfoContainer>
           <Stamp
             style={{
@@ -147,7 +152,7 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
 export default Card;
 
 const Container = styled(motion.div)`
-  width: 300px;
+  width: 380px;
   height: 600px;
   display: flex;
   position: relative;
@@ -171,15 +176,16 @@ const Image = styled.div<{ src: string }>`
 
 const InfoContainer = styled.div`
   bottom: 0;
-  height: 25%;
+  height: 15%;
   width: 100%;
   position: absolute;
   padding: 15px 15px;
   color: white;
 `;
 
-const Text = styled.span`
-  font-size: 1.5rem;
+const Text = styled.span<{ size?: React.ReactText; weight?: React.ReactText }>`
+  font-size: ${({ size }) => size || "2rem"};
+  font-weight: ${({ weight }) => weight};
 `;
 
 const Stamp = styled(motion.span)`

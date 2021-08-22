@@ -2,7 +2,7 @@ import httpstatus from "http-status";
 import { Request, Response, NextFunction } from "express";
 import { AUTHENTICATION_COOKIE } from "@tinder/shared-types";
 import MissingAuthenticateHeaderException from "~common/missing-authenticate-header-exception";
-import { generateUser, getPeoples } from "~resources/users";
+import { generateUser } from "~resources/users";
 import User from "~models/user";
 
 const authHandler = async (
@@ -26,8 +26,7 @@ const authHandler = async (
      */
     user = await User.create(generateUser({ uuid }));
   }
-  (request as any).currentUser = user.toJSON();
-  console.log(await getPeoples(user.toJSON()));
+  request.currentUser = user.toJSON();
 
   return next();
 };

@@ -5,10 +5,10 @@ import getUUID from "../get-uuid";
 const isDevelopment = (origin: string) =>
   origin.includes("http://0.0.0.0") || origin.includes("http://localhost");
 
-const getURL = (): string => {
+export const getURL = (): string => {
   const origin = window.location.origin.toString();
   if (isDevelopment(origin)) {
-    return "http://0.0.0.0:3000";
+    return "http://0.0.0.0:3000/v1/";
   } else {
     return process.env.BACK_END_URL || "";
   }

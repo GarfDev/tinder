@@ -4,8 +4,8 @@ import mongoose from "mongoose";
 import { Seeder } from "mongo-seeding";
 import seedingConfig from "~config/seeding";
 import createLocaleMiddleware from "express-locale";
-import authHandler from "~middlewares/auth";
 import userCollection from "~seeds/users";
+import router from "~routes";
 
 export default async () => {
   const app = express();
@@ -40,11 +40,7 @@ export default async () => {
       priority: ["accept-language", "default"],
     })
   );
-  app.use(authHandler);
-
-  app.get("/", (request, response) => {
-    response.send("Hello World!");
-  });
+  app.use(router);
 
   app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);

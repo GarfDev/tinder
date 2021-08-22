@@ -14,6 +14,7 @@ const Reset = createGlobalStyle`
   }
 
   html, body {
+    font-family: 'Quicksand', cursive;
     height: 100%;
     width: 100%;
   }
