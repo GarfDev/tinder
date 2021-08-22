@@ -4,11 +4,10 @@ export interface PeopleFetchProperities {
 }
 
 export interface Person {
-  id: string;
+  uuid: string;
   title: string;
   firstName: string;
   lastName: string;
-  picture: string;
 }
 
 export interface PersonLocation {
