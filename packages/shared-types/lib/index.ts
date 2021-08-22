@@ -8,6 +8,7 @@ export interface Person {
   title: string;
   firstName: string;
   lastName: string;
+  dateOfBirth: string;
 }
 
 export interface PersonLocation {
@@ -21,7 +22,6 @@ export interface PersonLocation {
 export interface PersonDetail extends Person {
   gender: string;
   email: string;
-  dateOfBirth: string;
   phone: string;
   location: PersonLocation;
   registerDate: string;

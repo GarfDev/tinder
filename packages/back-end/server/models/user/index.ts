@@ -1,7 +1,8 @@
-import { model, Model } from "mongoose";
+import { model } from "mongoose";
+import { Pagination } from "mongoose-paginate-ts";
 import { UserSchema } from "./schema";
 import { IUser } from "./types";
 
-const User: Model<IUser> = model("User", UserSchema);
+const User = model("User", UserSchema) as Pagination<IUser>;
 
 export default User;

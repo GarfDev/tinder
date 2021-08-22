@@ -12,7 +12,7 @@ const generateGender = () => (Math.random() >= 0.5 ? "male" : "female");
  * Main
  */
 
-const generateUser = (preDetail: Partial<IPersonDetail>): IPersonDetail => {
+const generateUser = (preDetail?: Partial<IPersonDetail>): IPersonDetail => {
   const user: IPersonDetail = {
     uuid: nanoid(),
     title: faker.lorem.words(),
@@ -31,16 +31,20 @@ const generateUser = (preDetail: Partial<IPersonDetail>): IPersonDetail => {
     },
     registerDate: faker.date.past(),
     updatedDate: faker.date.past(),
+    likedUUIDs: [],
+    passedUUIDs: [],
   };
 
   /**
    * Apply Preset Details
    */
-  Object.keys(preDetail).forEach((key) => {
-    /* To resolve type-error while checking */
-    if (!(preDetail as any)[key]) return;
-    (user as any)[key] = (preDetail as any)[key];
-  });
+  if (preDetail) {
+    Object.keys(preDetail).forEach((key) => {
+      /* To resolve type-error while checking */
+      if (!(preDetail as any)[key]) return;
+      (user as any)[key] = (preDetail as any)[key];
+    });
+  }
 
   return user;
 };

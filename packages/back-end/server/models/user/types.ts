@@ -11,6 +11,9 @@ export interface IPersonDetail extends Omit<PersonDetail, excludedFields> {
   dateOfBirth: Date;
   registerDate: Date;
   updatedDate: Date;
+  /* Backend exclusive fields */
+  likedUUIDs: string[];
+  passedUUIDs: string[];
 }
 
 export type IUser = IPersonDetail & Document;

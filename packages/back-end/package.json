@@ -41,6 +41,8 @@
     "express-locale": "^2.0.0",
     "faker": "^5.5.3",
     "http-status": "^1.5.0",
+    "mongo-seeding": "^3.7.0",
+    "mongoose-paginate-ts": "^1.2.0",
     "mongoose": "^5.13.7"
   }
 }

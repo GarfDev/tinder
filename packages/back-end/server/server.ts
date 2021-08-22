@@ -1,11 +1,15 @@
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
+import { Seeder } from "mongo-seeding";
+import seedingConfig from "~config/seeding";
 import createLocaleMiddleware from "express-locale";
 import authHandler from "~middlewares/auth";
+import userCollection from "~seeds/users";
 
 export default async () => {
   const app = express();
+
   const port = process.env.PORT;
   const mongo_url = process.env.MONGO_URL;
 
@@ -23,6 +27,9 @@ export default async () => {
     useFindAndModify: false,
     useCreateIndex: true,
   });
+
+  const seeder = new Seeder(seedingConfig);
+  await seeder.import([userCollection]);
 
   app.use(cors());
   app.use(express.json());
