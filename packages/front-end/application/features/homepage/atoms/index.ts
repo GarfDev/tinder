@@ -1,6 +1,6 @@
 import { axios } from "../../../utils";
 import { atom, selector } from "recoil";
-import { PersonResponse, PeopleFetchProperities, PeopleMap } from "../types";
+import { PersonResponse, PeopleFetchProperities } from "../types";
 
 /**
  * Atoms
@@ -12,11 +12,6 @@ export const peopleFetchProperitiesState = atom<PeopleFetchProperities>({
     limit: 10,
     page: 0,
   },
-});
-
-export const peopleMapState = atom<PeopleMap>({
-  key: "peopleMap",
-  default: {},
 });
 
 /**
