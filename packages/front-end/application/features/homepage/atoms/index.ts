@@ -25,7 +25,7 @@ export const peopleQuery = selector({
 
     const response: PersonResponse = await axios({
       method: "GET",
-      url: "https://dummyapi.io/data/v1/user",
+      url: "/user",
       headers: {
         "app-id": "6120eda966daca73ad7534e4",
       },

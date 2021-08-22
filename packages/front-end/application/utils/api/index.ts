@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { URLSearchParams } from "url";
 
 const instance = axios.create({
   baseURL: "https://dummyapi.io/data/v1/",
