@@ -27,3 +27,5 @@ export interface PersonDetail extends Person {
   registerDate: string;
   updatedDate: string;
 }
+
+export * from "./constants";

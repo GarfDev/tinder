@@ -22,7 +22,6 @@ export const peopleQuery = selector({
   key: "getPeoples",
   get: async ({ get }) => {
     const properities = get(peopleFetchProperitiesState);
-
     const response: PersonResponse = await axios({
       method: "GET",
       url: "/user",

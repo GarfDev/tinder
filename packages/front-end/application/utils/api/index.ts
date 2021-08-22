@@ -1,9 +1,21 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { URLSearchParams } from "url";
+import { AUTHENTICATION_COOKIE } from "../../features/homepage/types";
+import getUUID from "../get-uuid";
+
+const isDevelopment = (origin: string) =>
+  origin.includes("http://0.0.0.0") || origin.includes("http://localhost");
+
+const getURL = (): string => {
+  const origin = window.location.origin.toString();
+  if (isDevelopment(origin)) {
+    return "http://0.0.0.0:3000";
+  } else {
+    return process.env.BACK_END_URL || "";
+  }
+};
 
 const instance = axios.create({
-  baseURL: "https://dummyapi.io/data/v1/",
-  responseType: "json",
+  baseURL: getURL(),
 });
 
 const requestHandler = (request: AxiosRequestConfig) => {
@@ -14,6 +26,10 @@ const requestHandler = (request: AxiosRequestConfig) => {
     const paramString = new URLSearchParams(request.data).toString();
     request.url = `${request.url}?${paramString}`;
     request.data = undefined;
+    request.headers = {
+      [AUTHENTICATION_COOKIE]: getUUID(),
+      ...request.headers,
+    };
   }
   return request;
 };

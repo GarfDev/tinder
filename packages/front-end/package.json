@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "framer-motion": "^4.1.17",
+    "js-cookie": "^3.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "recoil": "^0.4.0",
@@ -21,11 +22,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.0",
+    "@tinder/shared-types": "^0.0.1",
+    "@types/js-cookie": "^2.2.7",
     "@types/node": "^15.0.1",
     "@types/parcel-env": "^0.0.0",
     "@types/react": "^17.0.4",
     "@types/react-dom": "^17.0.3",
-    "@tinder/shared-types": "^0.0.1",
     "@types/styled-components": "^5.1.12",
     "parcel-bundler": "^1.12.5"
   }

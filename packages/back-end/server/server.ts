@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import createLocaleMiddleware from "express-locale";
+import authHandler from "~middlewares/auth";
 
 export default async () => {
   const app = express();
@@ -23,8 +24,8 @@ export default async () => {
     useCreateIndex: true,
   });
 
-  app.use(express.json());
   app.use(cors());
+  app.use(express.json());
   app.use(
     createLocaleMiddleware({
       allowed: ["en_US", "pt_BR"],
@@ -32,6 +33,7 @@ export default async () => {
       priority: ["accept-language", "default"],
     })
   );
+  app.use(authHandler);
 
   app.get("/", (request, response) => {
     response.send("Hello World!");
