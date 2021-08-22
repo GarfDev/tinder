@@ -26,11 +26,15 @@ const requestHandler = (request: AxiosRequestConfig) => {
     const paramString = new URLSearchParams(request.data).toString();
     request.url = `${request.url}?${paramString}`;
     request.data = undefined;
-    request.headers = {
-      [AUTHENTICATION_COOKIE]: getUUID(),
-      ...request.headers,
-    };
   }
+  /**
+   * Add Authorization header for further requests
+   */
+  request.headers = {
+    ...request.headers,
+    [AUTHENTICATION_COOKIE]: getUUID(),
+  };
+
   return request;
 };
 

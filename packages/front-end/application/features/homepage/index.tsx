@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import { Person } from "@tinder/shared-types";
 import { peopleFetchProperitiesState, peopleQuery } from "./atoms";
+import { callLikePerson, callPassPerson } from "./utils";
 import { LOADING_OFFSET } from "./constants";
 import { PeopleMap, IPerson } from "./types";
 import { Card } from "./components";
@@ -30,13 +31,23 @@ const Homepage = (): JSX.Element => {
 
   // Event Handlers
 
+  const handleLike = useCallback(async () => {
+    await callLikePerson(viewingPerson.uuid);
+  }, [viewingPerson]);
+
+  const handlePass = useCallback(async () => {
+    await callPassPerson(viewingPerson.uuid);
+  }, [viewingPerson]);
+
   const onNextPerson = () => setViewIndex(viewIndex + 1);
 
   const onSwipeLeft = () => {
+    handlePass();
     onNextPerson();
   };
 
   const onSwipeRight = () => {
+    handleLike();
     onNextPerson();
   };
 
@@ -57,8 +68,6 @@ const Homepage = (): JSX.Element => {
       }
     }
   }, [viewIndex]);
-
-  console.log(peopleMap);
 
   useEffect(() => {
     switch (remotePeoples.state) {
