@@ -24,7 +24,7 @@ const requestHandler = (request: AxiosRequestConfig) => {
    */
   if (request.method?.toLowerCase() === "get") {
     const paramString = new URLSearchParams(request.data).toString();
-    request.url = `${request.url}?${paramString}`;
+    request.url = `${request.url}${paramString ? `?${paramString}` : ""}`;
     request.data = undefined;
   }
   /**
