@@ -6,7 +6,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/GarfDev/tinder">
-    <img src="https://media2.giphy.com/media/9tvjJDj61YYycA4u87/giphy.gif?cid=790b7611208c7929be4da77679027de441c02754f65b9e9c&rid=giphy.gif&ct=g" alt="Logo">
+    <img src="https://media2.giphy.com/media/FLOOnl2fujyDJ4NWZ0/giphy.gif?cid=790b7611ff9aff9206f7d26519136480756efa6c7a41d710&rid=giphy.gif" alt="Logo">
   </a>
 
   <h3 align="center">Tinder</h3>
