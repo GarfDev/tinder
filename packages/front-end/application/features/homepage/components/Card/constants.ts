@@ -1,0 +1,9 @@
+export const HIDE = 0;
+export const SHOW = 1;
+export const SWITCH_POINT = 200;
+export const MAX_SWIPE_POINT = 200;
+export const MAX_ROTAGE_ANGLE = 15;
+export const MIN_SWIPE_POINT = 150;
+export const MIN_SWITCH_POINT = 40;
+export const SWIPE_RIGHT_COLOR = "#ed4264";
+export const SWIPE_LEFT_COLOR = "#585757";

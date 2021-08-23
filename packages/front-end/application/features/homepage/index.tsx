@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
 import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import { Person } from "@tinder/shared-types";
 import { navigateUpdateState } from "../../global/components/navigation-bar/atoms";
@@ -9,6 +8,7 @@ import { callLikePerson, callPassPerson } from "./utils";
 import { LOADING_OFFSET } from "./constants";
 import { PeopleMap, IPerson } from "./types";
 import { Card } from "./components";
+import { Container } from "./styles";
 
 /**
  *
@@ -103,6 +103,11 @@ const Homepage = (): JSX.Element => {
 
   useEffect(() => {
     return () => {
+      /**
+       * Reset params
+       * to 1 to ready for
+       * next fetch
+       */
       setFetchProperities({
         ...fetchProperities,
         page: 1,
@@ -134,33 +139,3 @@ const Homepage = (): JSX.Element => {
 };
 
 export default Homepage;
-
-/**
- * Styles
- */
-
-const gradient = keyframes`
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 70%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-`;
-
-const Container = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  background-size: 150% 150%;
-  background: -webkit-linear-gradient(to right, #ffedbc, #ed4264);
-  background: linear-gradient(to right, #ffedbc, #ed4264);
-  animation: ${gradient} 15s ease infinite;
-  height: 100vh;
-
-  justify-content: center;
-  align-items: center;
-`;

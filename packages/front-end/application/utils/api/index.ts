@@ -5,6 +5,12 @@ import getUUID from "../get-uuid";
 const isDevelopment = (origin: string) =>
   origin.includes("http://0.0.0.0") || origin.includes("http://localhost");
 
+/**
+ * Base on current origin to consider return
+ * variables that maybe come from docker or
+ * just return dev backend address
+ * @returns BACK_END_URL
+ */
 export const getURL = (): string => {
   const origin = window.location.origin.toString();
   if (isDevelopment(origin)) {
@@ -38,7 +44,9 @@ const requestHandler = (request: AxiosRequestConfig) => {
   return request;
 };
 
-const errorHandler = (err: any) => {};
+const errorHandler = (err: any) => {
+  /* Not yet implement this */
+};
 
 instance.interceptors.request.use(requestHandler, errorHandler);
 

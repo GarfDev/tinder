@@ -1,30 +1,24 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
 import {
-  motion,
   useMotionValue,
   useTransform,
   useAnimation,
   PanHandlers,
   AnimatePresence,
 } from "framer-motion";
-import { IPerson } from "../types";
-
-/**
- * Constants
- */
-
-// Group them togother in here for
-// easier to modify values
-const HIDE = 0;
-const SHOW = 1;
-const SWITCH_POINT = 200;
-const MAX_SWIPE_POINT = 200;
-const MAX_ROTAGE_ANGLE = 15;
-const MIN_SWIPE_POINT = 150;
-const MIN_SWITCH_POINT = 40;
-const SWIPE_RIGHT_COLOR = "#ed4264";
-const SWIPE_LEFT_COLOR = "#585757";
+import { IPerson } from "../../types";
+import { Container, InfoContainer, Image, Text, Stamp } from "./styles";
+import {
+  HIDE,
+  SHOW,
+  MAX_ROTAGE_ANGLE,
+  MAX_SWIPE_POINT,
+  MIN_SWIPE_POINT,
+  MIN_SWITCH_POINT,
+  SWIPE_LEFT_COLOR,
+  SWIPE_RIGHT_COLOR,
+  SWITCH_POINT,
+} from "./constants";
 
 interface Props {
   person?: IPerson;
@@ -150,52 +144,3 @@ const Card = ({ person, onSwipeLeft, onSwipeRight }: Props): JSX.Element => {
 };
 
 export default Card;
-
-const Container = styled(motion.div)`
-  width: 380px;
-  height: 600px;
-  display: flex;
-  cursor: grabbing;
-  position: relative;
-  background: white;
-  background-clip: padding-box;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  flex-direction: column;
-  overflow: hidden;
-`;
-
-const Image = styled.div<{ src: string }>`
-  flex: 4;
-  object-fit: cover;
-  background-size: cover;
-  background-image: ${({ src }) => `url(${src})`};
-  background-repeat: no-repeat;
-  background-position: center;
-`;
-
-const InfoContainer = styled.div`
-  bottom: 0;
-  height: 15%;
-  width: 100%;
-  position: absolute;
-  padding: 15px 15px;
-  color: white;
-`;
-
-const Text = styled.span<{ size?: React.ReactText; weight?: React.ReactText }>`
-  font-size: ${({ size }) => size || "2rem"};
-  font-weight: ${({ weight }) => weight};
-`;
-
-const Stamp = styled(motion.span)`
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  font-size: 9rem;
-  justify-content: center;
-  align-items: center;
-  color: #f0f0f0;
-`;
