@@ -11,6 +11,8 @@
     "dev:front": "yarn workspace @tinder/front-end dev",
     "dev:back": "yarn workspace @tinder/back-end dev",
     "build:front": "yarn workspace @tinder/front-end build",
+    "build:back": "yarn workspace @tinder/back-end build",
+    "start:back": "yarn workspace @tinder/back-end start",
     "install:back": "yarn workspace @tinder/back-end add",
     "install:front": "yarn workspace @tinder/front-end add",
     "pre:deps:shared-types": "yarn lerna run --scope @tinder/shared-types tsc",

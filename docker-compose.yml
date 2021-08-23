@@ -1,12 +1,40 @@
 version: "3.8"
 
 services:
-  app:
-    container_name: app-prod
+  mongodb:
+    image: mongo:4.2.3-bionic
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+      # named volumes
+      - ./mongo/data:/data/db
+
+  front-end:
+    container_name: front-end-prod
     ports:
       - 80:80
-    image: app-prod
+    image: front-end-prod
+    environment:
+      BACKEND_URL: http://back-end:3000/
     build:
       context: .
       dockerfile: ./packages/front-end/dockerfile
       target: production
+
+  back-end:
+    container_name: back-end-prod
+    environment:
+      PORT: 3000
+      MONGO_URL: mongodb://admin:admin@mongodb:27017/
+    depends_on:
+      - mongodb
+    ports:
+      - 3000:3000
+    image: back-end-prod
+    build:
+      context: .
+      dockerfile: ./packages/back-end/dockerfile

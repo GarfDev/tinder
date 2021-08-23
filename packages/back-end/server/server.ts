@@ -1,8 +1,9 @@
 import cors from "cors";
+import morgan from "morgan";
 import express from "express";
 import mongoose from "mongoose";
 import { Seeder } from "mongo-seeding";
-import seedingConfig from "~config/seeding";
+import Config from "~config";
 import createLocaleMiddleware from "express-locale";
 import userCollection from "~seeds/users";
 import router from "~routes";
@@ -12,6 +13,7 @@ export default async () => {
 
   const port = process.env.PORT;
   const mongo_url = process.env.MONGO_URL;
+  const locale = createLocaleMiddleware(Config.locale);
 
   if (!port) {
     throw Error("Cannot start since PORT env not defined");
@@ -21,28 +23,36 @@ export default async () => {
     throw Error("Cannot start since MONGO_URL env not defined");
   }
 
-  await mongoose.connect(mongo_url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  });
+  await mongoose.connect(mongo_url, Config.mongoose);
 
-  const seeder = new Seeder(seedingConfig);
+  const seeder = new Seeder(Config.seeding);
   await seeder.import([userCollection]);
 
+  /**
+   * Metadata parser
+   */
+
   app.use(cors());
+  app.use(morgan("tiny"));
+  app.use(locale);
+
+  /**
+   * Body Parser
+   */
+
   app.use(express.json());
-  app.use(
-    createLocaleMiddleware({
-      allowed: ["en_US", "pt_BR"],
-      default: "en_US",
-      priority: ["accept-language", "default"],
-    })
-  );
+
+  /**
+   * Route Initalize
+   */
+
   app.use(router);
 
-  app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`);
-  });
+  try {
+    app.listen(port, () => {
+      console.log(`App listening at http://localhost:${port}`);
+    });
+  } catch (e) {
+    console.log("Error while starting application", e);
+  }
 };

@@ -1,0 +1,16 @@
+FROM node:14-alpine
+ENV NODE_ENV production
+# Add a work directory
+WORKDIR /mono
+# Cache and Install dependencies
+COPY package.json .
+COPY yarn.lock .
+RUN yarn add -W lerna
+RUN yarn
+# Copy files
+COPY . .
+# Build the app
+EXPOSE 3000
+# Start server
+CMD ["yarn", "start:back"]
+
