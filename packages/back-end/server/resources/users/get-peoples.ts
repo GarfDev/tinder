@@ -23,12 +23,12 @@ const getPeoples: RequestHandler = async (req, res) => {
   if (peoples) {
     const data = peoples.docs.map((people) => normalizeUser(people));
     return res
-      .status(httpStatus.ACCEPTED)
+      .status(httpStatus.OK)
       .json({ data, page: currentPage, totalPage: peoples.totalPages });
   }
 
   return res
-    .status(httpStatus.ACCEPTED)
+    .status(httpStatus.OK)
     .json({ data: [], page: currentPage, totalPage: 0 });
 };
 

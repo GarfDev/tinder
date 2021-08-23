@@ -155,13 +155,12 @@ const Container = styled(motion.div)`
   width: 380px;
   height: 600px;
   display: flex;
+  cursor: grabbing;
   position: relative;
   background: white;
-  border: 5px solid;
   background-clip: padding-box;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   flex-direction: column;
-  border-radius: 15px;
   overflow: hidden;
 `;
 

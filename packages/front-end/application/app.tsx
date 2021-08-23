@@ -1,12 +1,20 @@
 import React, { Suspense, useEffect } from "react";
 import Reset from "./reset";
 import { RecoilRoot } from "recoil";
-import getUUID from "./utils/get-uuid";
+import initializeUUID from "./utils/get-uuid";
 import Homepage from "./features/homepage";
+
+/**
+ * Main
+ */
 
 const App = (): JSX.Element => {
   useEffect(() => {
-    getUUID();
+    /**
+     * Initialize UUID for current session
+     * it will be stored in cookies
+     */
+    initializeUUID();
   }, []);
 
   // Main return

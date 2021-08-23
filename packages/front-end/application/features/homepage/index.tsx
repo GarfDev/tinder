@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import { Person } from "@tinder/shared-types";
+import { navigateUpdateState } from "../../global/components/navigation-bar/atoms";
+import { NavigationBar } from "../../global/components";
 import { peopleFetchProperitiesState, peopleQuery } from "./atoms";
 import { callLikePerson, callPassPerson } from "./utils";
 import { LOADING_OFFSET } from "./constants";
@@ -18,7 +20,11 @@ const Homepage = (): JSX.Element => {
   const [fetchProperities, setFetchProperities] = useRecoilState(
     peopleFetchProperitiesState
   );
+  const [navigateUpdate, updateNavigate] = useRecoilState(navigateUpdateState);
   const [peopleMap, setPeopleMap] = useState<PeopleMap>({});
+
+  // References
+  const preloadRef = React.useRef(document.createElement("img"));
 
   // Remote States
   const remotePeoples = useRecoilValueLoadable(peopleQuery);
@@ -28,6 +34,7 @@ const Homepage = (): JSX.Element => {
   const peoples: Person[] = Object.values(peopleMap).flat();
   const peopleLength = peoples.length || LOADING_OFFSET;
   const viewingPerson = peoples[viewIndex] as IPerson;
+  const nextPerson = peoples[viewIndex + 1] as IPerson;
 
   // Event Handlers
 
@@ -39,7 +46,13 @@ const Homepage = (): JSX.Element => {
     await callPassPerson(viewingPerson.uuid);
   }, [viewingPerson]);
 
-  const onNextPerson = () => setViewIndex(viewIndex + 1);
+  const onNextPerson = () => {
+    setViewIndex(viewIndex + 1);
+  };
+
+  const onUpdateNavibar = () => {
+    updateNavigate(navigateUpdate + 1);
+  };
 
   const onSwipeLeft = () => {
     handlePass();
@@ -61,6 +74,7 @@ const Homepage = (): JSX.Element => {
   // Side-Effects
 
   useEffect(() => {
+    onUpdateNavibar();
     if (!loading) {
       const offsetPoint = peopleLength - LOADING_OFFSET;
       if (viewIndex > offsetPoint) {
@@ -96,9 +110,20 @@ const Homepage = (): JSX.Element => {
     };
   }, []);
 
+  useEffect(() => {
+    /**
+     * Prefetch next
+     * person image
+     */
+    if (nextPerson) {
+      preloadRef.current.src = nextPerson.avatarUrl;
+    }
+  }, [nextPerson]);
+
   // Main return
   return (
     <Container>
+      <NavigationBar />
       <Card
         person={viewingPerson}
         onSwipeRight={onSwipeRight}

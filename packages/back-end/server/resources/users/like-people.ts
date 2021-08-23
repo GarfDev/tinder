@@ -11,7 +11,7 @@ const likePeoples: RequestHandler = async (req, res) => {
   if (body.uuid) {
     const user = await User.findOneAndUpdate(
       { uuid: req.currentUser.uuid },
-      { $push: { likedUUIDs: body.uuid } },
+      { $addToSet: { likedUUIDs: body.uuid } },
       { new: true }
     );
     return res.status(httpStatus.ACCEPTED).send(user!.toJSON());
