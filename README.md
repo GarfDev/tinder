@@ -66,6 +66,11 @@ Tinder is an fullstack-project that aim for exploration and testing. So I will t
 - [Styled Components](https://styled-components.com/)
 - [Axios](https://github.com/axios/axios)
 
+##### Back-end
+
+- [Express](https://expressjs.com/)
+- [Mongoose](https://mongoosejs.com/)
+
 <!-- GETTING STARTED -->
 
 ## Getting Started
