@@ -16,7 +16,7 @@ export const getURL = (): string => {
   if (isDevelopment(origin)) {
     return "http://0.0.0.0:3000/v1/";
   } else {
-    return process.env.BACK_END_URL || "";
+    return process.env.BACKEND_URL || "";
   }
 };
 
