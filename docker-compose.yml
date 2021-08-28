@@ -18,19 +18,17 @@ services:
     ports:
       - 80:80
     environment:
-      BACKEND_URL: http://0.0.0.0:6677/
-
+      BACKEND_URL: "http://back-end:6677/"
     build:
       context: .
       dockerfile: ./packages/front-end/dockerfile
-      target: production
 
   back-end:
     environment:
       PORT: 6677
-      MONGO_URL: mongodb://admin:admin@mongodb:27017/
-      UNSLASH_ACCESS_KEY: 6shqDo4NVu85fDCejx1lMNaA3p1eHGe6trXqFN2smho
-      DEBUG: mongo-seeding
+      MONGO_URL: "mongodb://admin:admin@mongodb:27017/"
+      UNSLASH_ACCESS_KEY: "6shqDo4NVu85fDCejx1lMNaA3p1eHGe6trXqFN2smho"
+      DEBUG: "mongo-seeding"
     depends_on:
       - mongodb
     ports:

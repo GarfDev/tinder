@@ -9,7 +9,7 @@ import getUUID from "../get-uuid";
  * @returns BACK_END_URL
  */
 export const getURL = (): string => {
-  return process.env.BACKEND_URL || "http://0.0.0.0:3000/v1/";
+  return "http://0.0.0.0:6677/v1/";
 };
 
 const instance = axios.create({
