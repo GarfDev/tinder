@@ -2,9 +2,6 @@ import axios, { AxiosRequestConfig } from "axios";
 import { AUTHENTICATION_COOKIE } from "../../features/homepage/types";
 import getUUID from "../get-uuid";
 
-const isDevelopment = (origin: string) =>
-  origin.includes("http://0.0.0.0") || origin.includes("http://localhost");
-
 /**
  * Base on current origin to consider return
  * variables that maybe come from docker or
@@ -12,12 +9,7 @@ const isDevelopment = (origin: string) =>
  * @returns BACK_END_URL
  */
 export const getURL = (): string => {
-  const origin = window.location.origin.toString();
-  if (isDevelopment(origin)) {
-    return "http://0.0.0.0:3000/v1/";
-  } else {
-    return process.env.BACKEND_URL || "";
-  }
+  return process.env.BACKEND_URL || "http://0.0.0.0:3000/v1/";
 };
 
 const instance = axios.create({
